@@ -1,0 +1,62 @@
+{% extends "United/layout.html" %}
+ 
+{% load static %}
+
+{% block body %}
+
+
+<form action="{% url 'create' %}" method="POST">
+    {% csrf_token %}
+
+
+<div class="Event">
+    
+    <h3>Create Event</h3>
+
+    <div>
+        <input style='width:300px; height: 35px; border-radius: 8px; border: none; outline: none; margin:30px 0px 0px 5px' autofocus class="form-control" type="text" name="image" placeholder="Image">
+    </div>
+
+    <div>
+        <input style='width:300px; height: 35px; border-radius: 8px; border: none; outline: none;margin:30px 0px 5px 5px' autofocus class="form-control" type="text" name="artist_name" placeholder="Artist" required>
+    </div>
+
+    <div>
+        <input style='width:300px; height: 35px; border-radius: 8px; border: none; outline: none;margin:30px 0px 0px 5px' autofocus class="form-control" type="text" name="location" placeholder="location" required>
+    </div>
+
+    <p class="first">Date and Time:
+            {{ form.date }}
+        </p>
+
+
+        <script>
+            $(function () {
+              $("#id_date").datetimepicker({
+                minDate: new Date(),
+                format: 'Y-m-d H:i',
+              });
+            });
+          </script>
+
+
+
+
+    <p style="padding-left: 5px; padding-top: 15px; display: inline-block;"><span style="width:200x;">Number of tickets:</span> <input style="width:70px;" type="number" name="ticket_num" min="50"  required></p>
+
+    <p style="padding-left: 5px; padding-top: 15px; display: inline-block"><span style="width:200x; padding-left:60px">Price per ticket:$</span> <input style="width:70px;" type="text" min="10"  name="ticket_price" required></p>
+
+    <p><span style="display: block; padding-left:5px; margin-top:10px">Description:</span>
+        <textarea style="margin-left:15px;resize: none; width:400px; height: 100px; border-radius: 10px; outline: none;" name='description' id="news" placeholder="Type here..." required></textarea>
+        </p>
+<div class="forb">
+        <button><a style="color: #fff; font-size: 20px; text-decoration: none;">Create</a></button>
+</div>
+</div>
+
+</form>
+
+
+{% endblock %}
+
+

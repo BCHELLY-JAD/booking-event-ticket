@@ -1,0 +1,153 @@
+{% extends "United/layout.html" %}
+ 
+{% load static %}
+
+{% block body %}
+<div class="thenav1"> 
+    <h2>UNITED</h2>
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+      </div> 
+    </div>
+
+<div class="backimage">
+<img class="backgroundImg" src="{% static 'United/img/backgroundimage.jpg' %}">
+</div>
+
+{% if user.is_authenticated %}
+<p style="color:#fff;padding-left: 5px;">Welcome <span style="color:#fff; text-decoration: underline;">{{ request.user }}</span></p>
+{% endif %}
+
+    <div class="ptext">
+        <span class="welcome"> 
+            <h3>UNITED WE ARE</h3> 
+        <p class="cap">The world's biggest Event platform in the world</p>
+        <p class="text">Create an event or book your tickets and have an unforgettable time with your loved ones</p>
+        {% if user.is_authenticated %}
+        <button><a href="{% url 'create' %}">Create an Event</a></button>
+        {% endif %}
+        </span>
+    </div> 
+
+    {% if user.is_authenticated %}
+
+<div class="fixMe">
+    <button id=butoon1>
+        <p  style="float:left; padding-top: 10px;padding-left: 8px;">Have a question? Ask Mia</p>  
+         <img src="https://image.flaticon.com/icons/svg/145/145866.svg" height= "50" width="50" style="float:right; border-radius: 50%; border: 1px solid #cccccc;margin-left:18px">
+     </button>
+    </div>
+    {% endif %}
+    
+    <div class="adjust">
+    <a id="go-top" href="#">  <i class="fas fa-arrow-up"></i></a>
+    </div>
+
+ <br>
+
+    
+ <div class="ev"> <h4>EVENTS</h4></div>
+    <form>
+ <div class="searchbar"> 
+   
+      <input style="width:250px; height:40px; outline:none; border-radius: 5px; border: none;" type="search" placeholder="Search" aria-label="Search" name="q">
+      <button style="width:100px" class="btn btn-outline-success" type="submit">Search</button>
+    
+</div>
+            {% for check_theEv in check_events %}
+                {% for check_availability in check_booked %}
+                     {% if check_theEv == check_availability.reservations and request.user == check_availability.booker %}
+                        {% if check_theEv in not_active %}
+                    <div class="alert alert-danger w-50 p-3 d-flex justify-content-center" style="margin:auto; " role="alert">
+                        One of your bookings has been deleted by the event owner. Please note that a refund is considered.
+                    </div>
+                       {% endif %}
+                    {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+</form>
+
+    
+    <div class="row letsrow"> 
+  
+        {% for event in events %}
+    
+        <div class="box shadow p-3 mb-5 bg-grey rounded">
+            <div class="col-sm-2.7 m-2"> 
+                <div class="pic">
+                <img class="card-img-top" src="{{ event.image }}">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><span class="title">Artist</span>:&nbsp;{{ event.artist_name }}</h5>
+                  <p class="card-text"><span class="title">Date</span>:&nbsp; {{ event.date }}</p>
+                  <p class="card-text"><span class="title">Location</span>:&nbsp;{{ event.location }}</p>
+                  <p class="card-text"><span class="title">Number of tickets</span>:&nbsp;{{ event.ticket_num }}</p>
+                  <p class="card-text"><span class="title">Price per ticket</span>:&nbsp;${{ event.ticket_price }}</p>
+                  <button><a href="{% url 'view' event.id %}">View details</a></button>
+                </div>
+        
+             </div>
+             </div>
+        
+    {% endfor %}
+
+</div> 
+
+
+<script> 
+document.getElementById('go-top').style.display = 'none';
+
+window.addEventListener('scroll', function(){
+    if (window.scrollY){ 
+        document.getElementById('go-top').style.display = 'block';
+        document.querySelector('.thenav1').style.display = 'block';
+    } else {
+        document.getElementById('go-top').style.display = 'none';
+        document.querySelector('.thenav1').style.display = 'none';
+    }
+    if (window.matchMedia("(max-width: 530px)").matches) {
+        document.getElementById('go-top').style.display = 'none';
+}
+
+})
+
+window.onscroll = function() {scrollBar()};
+
+function scrollBar() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  document.getElementById("myBar").style.width = scrolled + "%";
+}
+
+
+
+
+document.querySelector(".fixMe").style.display = "none";
+    function show() {
+            document.querySelector(".fixMe").style.display = "inline";
+
+        }
+
+        setTimeout(show, 8000);
+      
+        document.querySelector(".fixMe").onclick = function () {
+            window.location.href = 'http://127.0.0.1:8000/bot';
+    }
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,59 @@
+{% extends "United/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+
+    <h3 class="tit">Advertising</h3>
+
+    <form action="{% url 'advertise' %}" method="POST">
+        {% csrf_token %}
+
+
+<div class="adjustingAds">
+    {% if message %}
+    <div class="alert alert-primary w-50 p-3" style="margin-left:122px;" role="alert">
+        {{ message }}
+      </div>
+      {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger w-50 p-3" style="margin-left:122px;" role="alert">
+        {{error}}
+        </div>
+    {% endif %}
+
+<div style=" margin-top: 45px;">
+        <span style="color:white">Headline:&nbsp;&nbsp; </span><span style="font-size: 14px; color:white">(Approximately 60 Characters long) </span>
+        <input id="focus" style='width:500px; height: 30px; border-radius: 8px; border: none; outline: none;' autofocus class="form-control" type="text" name="headline" placeholder="Headline" required>
+    </div>
+    <div style=" margin-top: 15px;">
+        <span style="color:white">Website url:&nbsp;&nbsp; </span><span style="font-size: 14px; color:white">(Approximately 200 Characters long) </span>
+        <input id="focus" style='width:500px; height: 30px; border-radius: 8px; border: none; outline: none;' class="form-control"  name="web_url" placeholder="Your website's url" required>
+    </div>
+    <div style="margin-top: 15px;">
+        <span style="color:white">Description:&nbsp;&nbsp; </span><span style="font-size: 14px; color:white">(Approximately 90 Characters long) </span>
+
+        <input id="focus" style='width:500px; height: 30px; border-radius: 8px; border: none; outline: none;' class="form-control"  name="describe" placeholder="Description" required>
+    </div>
+    <div style=" margin-top: 15px;">
+        <span style="color:white">Call to action:&nbsp;&nbsp; </span><span style="font-size: 14px; color:white">(Approximately 15 Characters long) </span>
+        <input id="focus" style='width:500px; height: 30px; border-radius: 8px; border: none; outline: none;' class="form-control"  name="callToAction" placeholder="Trigger a conversion" required>
+    </div>
+    <div style=" margin-top: 15px;">
+        <span style="color:white">Bid:&nbsp;&nbsp; </span><span style="font-size: 14px; color:white">(Approximately 15 Characters long) </span> <span style="color:#FFD700;">{% if maxValue %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The highest bid is:$  {{maxValue}}{% endif %}</span>
+        <input id="focus" style='width:500px; height: 30px; border-radius: 8px; border: none; outline: none;' class="form-control"  name="bid" placeholder="Enter your bid amount" required>
+    </div>
+    <div style=" margin-top: 20px;">
+        <button style="width:100px; height: 35px; border:none; border-radius: 7px;background-color: teal;"><span style="color:white; font-family:sego;font-size: 20px;">Launch</span></button>
+    </div>
+
+    
+
+
+
+</div>
+
+</form>
+
+{% endblock %} 

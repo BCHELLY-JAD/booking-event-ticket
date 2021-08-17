@@ -1,0 +1,63 @@
+{% extends "United/layout.html" %}
+ 
+{% load static %}
+
+{% block body %}
+
+
+
+    <div class="created"><h4>Reservations</h4></div>
+
+   
+ <div class="row letsrow"> 
+   
+    {% for event in events %} 
+    {% for available in booked %}
+  
+
+    {% if event == available.reservations and request.user == available.booker %}
+
+    <div class="box  shadow p-3 mb-5 bg-grey rounded">
+    <div class="col-sm-2.7 m-2"> 
+        <div class="pic">
+        <img class="card-img-top" src="{{ event.image }}">
+        </div>
+        
+
+        <div class="card-body">
+          <h5 class="card-title"><span class="title">Artist</span>:&nbsp;{{ event.artist_name }}</h5>
+          <p class="card-text"><span class="title">Date</span>:&nbsp; {{ event.date }}</p>
+          <p class="card-text"><span class="title">Location</span>:&nbsp;{{ event.location }}</p>
+          <p class="card-text"><span class="title">Number of tickets booked</span>:&nbsp;{{ available.ticket_booked }}</p>
+          <p class="card-text"><span class="title">Price per ticket</span>:&nbsp;${{ event.ticket_price }}</p>
+          <button><a href="{% url 'view' event.id %}">View details</a></button>
+
+
+        </div>
+
+     </div>
+     </div>
+
+
+     {% endif %}
+     {% endfor %}
+     {% endfor %}
+
+
+</div> 
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

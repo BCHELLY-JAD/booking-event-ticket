@@ -1,0 +1,171 @@
+{% extends "United/layout.html" %}
+ 
+{% load static %}
+{% load mathfilters %}
+{% block body %}
+
+
+    
+    <div class="adjust">
+    <a id="go-top" href="#">  <i class="fas fa-arrow-up"></i></a>
+    </div>
+
+    {% if request.user.is_authenticated %}
+    
+{% if the_ad %}
+{% if request.user != the_ad.advertiser %}
+<div id="Fix_ad">
+    <div id ="Ad_space">
+        
+        <h4 style="background-color: #d3d3d3; font-size: large; padding: 15px 8px; color:#000;"><span style="color:#ff0000;background-color: #d3d3d3;font-family: Impact;">Ad-</span> &nbsp; {{the_ad.headline}}<i style="background-color: #d3d3d3; color:#a9a9a9;padding-left: 5px; font-size: 25px;cursor:pointer" class="fas fa-window-close"></i></h4>
+        <a target="_blank" href="{{the_ad.web_url}}" style="background-color: #d3d3d3; position: absolute; top:40px;padding-left: 50px; font-size: 15px;">{{the_ad.web_url}}/</a>
+        <p style="background-color: #d3d3d3; color:#000; font-family: sans-serif;padding-left: 40px;">{{the_ad.description}}</p>
+        <button style="background-color: #d3d3d3; margin-left:250px; padding:7px;;background-color: green;border:none; cursor:pointer"><a style="color:#fff;font-size: 15px; text-decoration: none;" href="{{the_ad.web_url}}"  target="_blank">{{the_ad.callToAction}}</a></button>
+    
+    </div>
+</div>
+{% endif %}
+{% endif %}
+{% endif %}
+
+
+
+ <br>
+    
+    <div class="name"><h4>{{ this_event.artist_name }}</h4></div>
+    <img class="animage" src="{{ this_event.image }}">
+    <p class="createdon">created by {{ this_event.event_creator }} on {{ this_event.timestamp }}</p>
+    <p class="describe">{{ this_event.description }}</p>
+    
+    <ul class="do">
+    <li>This event will occur on:&nbsp;&nbsp;<span class="data">{{ this_event.date }}</span></li>
+    <li>Location:&nbsp;&nbsp;<span class="data">{{ this_event.location }}</span></li>
+    <li>Number of tickets available:&nbsp;&nbsp;<span class="data">{{ this_event.ticket_num|sub:book }}</span></li>
+    <li>Price per ticket:&nbsp;&nbsp;$<span class="data">{{ this_event.ticket_price }}</span></li>
+    </ul>
+
+        {% if request.user.is_authenticated %}
+        {% if request.user != this_event.event_creator %}
+    <div class="fan">Are you a fan of {{ this_event.artist_name }}?&nbsp;&nbsp;<a class="booking" href="{% url 'book' this_event.id %}">Book your tickets now</a></div>
+    
+    {% endif %}
+    {% endif %}
+
+    <!-- COMMENTS -->
+
+    <div class="container bootstrap snippets bootdey">
+        <div class="row allr">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                   
+                    <h3 class="text-success">Comments</h3>
+                    
+                    <hr/>
+                    
+                    <ul class="comments">
+                        {% for comment in list_comment %}
+                        <li class="clearfix">
+                            <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
+                            <div class="post-comments">
+                                
+                                <p class="meta"><span class="space">{{comment.time}} <a href="#">{{comment.commenter}}</a>  says :</span>&nbsp; 
+                                    {% if request.user.is_authenticated %}
+                                     {% if request.user in comment.likes.all %}
+                                        <i id="like-{{comment.id}}" class="like fas fa-heart"></i>
+                                        <i id="count-{{comment.id}}" class="likeme">{{ comment.likes_count }}</i>
+                                        {% else %}
+                                        <i id="like-{{comment.id}}" class="like far fa-heart"></i>
+                                        <i id="count-{{comment.id}}" class="likeme">{{ comment.likes_count }}</i>                                        
+                                        {% endif %}
+                                    {% endif %}
+                                </p>
+                                
+                                <p>
+                                        {{comment.comment}}
+                                </p>
+                            </div>
+                          </li>
+                          {% endfor %}
+                        
+                          <form action="{% url 'add' this_event.id %}" method="POST">
+                            {% csrf_token %}
+
+                     
+                        {% if request.user.is_authenticated %}
+                      <div class="post-comments">
+                          
+                              {{form.text}}
+
+                              <button id="submit1">submit</button>
+                         
+                      </div>
+                      {% endif %}
+
+
+                       
+                    
+                   
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ </form>
+    <!-- END OF COMMENTS -->
+
+
+
+<script> 
+document.getElementById('go-top').style.display = 'none';
+window.addEventListener('scroll', function(){
+    if (window.scrollY){ 
+        document.getElementById('go-top').style.display = 'block';
+    } else {
+        document.getElementById('go-top').style.display = 'none';
+    }
+    
+    if (window.matchMedia("(max-width: 530px)").matches) {
+        document.getElementById('go-top').style.display = 'none';
+}
+})
+
+
+
+
+
+     document.getElementById("Ad_space").style.display = "none";
+    function show() {
+             document.getElementById("Ad_space").style.display = "inline";
+         }
+
+        function myFunction() {
+             window.location = "view.html"
+         }
+
+         setTimeout(show, 3000);
+
+
+    document.querySelector(".fa-window-close").addEventListener('click', function close() { 
+        document.getElementById("Ad_space").style.display = "none";
+    })
+
+</script>
+
+<script> var csrftoken = '{{ csrf_token }}';</script>
+<script src="{% static 'United/UI.js'%}"></script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

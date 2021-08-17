@@ -1,0 +1,30 @@
+{% extends "United/layout.html" %}
+ 
+{% load static %}
+
+{% block body %}
+
+<div class="created"><h4>My account</h4></div>
+
+<ul>
+<li class="userinfo"><span style="color:#add8e6">Email address:</span> &nbsp;{{private.email}}</li>
+<li class="userinfo"><span style="color:#add8e6">Username:</span> &nbsp;{{ request.user }}</li>
+<li class="userinfo"><span style="color:#add8e6">Joined on:</span> &nbsp;{{private.date_joined}} </li>
+<li class="userinfo"><span style="color:#add8e6">Credit Card number:</span> &nbsp; {{n}}{{o}}{{p}} &nbsp; {{p}}{{o}}{{n}} &nbsp; {{o}}{{n}}{{p}}</li>
+<li class="userinfo"><span style="color:#add8e6">Expiration month:</span>&nbsp; {{d}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#add8e6"> year:</span> {{y}}</li>
+<li class="userinfo"><span style="color:#add8e6">Current Budget:</span> &nbsp;${{private.budget}}</li>
+</ul>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

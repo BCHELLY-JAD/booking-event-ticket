@@ -1,0 +1,31 @@
+{% extends "United/layout.html" %}
+ 
+{% load static %}
+
+
+
+{% block body %}
+
+{% if message %}
+<div class="alert alert-danger w-25 p-3 d-flex justify-content-center" style="margin:auto;" role="alert">
+    <div>{{ message }}</div>
+  </div>
+{% endif %}
+
+
+<h2 style="display: flex; justify-content: center;text-transform: uppercase; color: #ff0000; margin-top: 40px;">Login</h2>
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div style=" display: flex; justify-content: center; padding: 8px; margin-top: 10px;">
+        <input id="focus" style='width:500px; height: 40px; border-radius: 8px; border: none; outline: none;' autofocus class="form-control" type="text" name="username" placeholder="Username">
+    </div>
+    <div style=" display: flex;justify-content: center; padding: 8px; margin-top: 10px;">
+        <input id="focus" style='width:500px; height: 40px; border-radius: 8px; border: none; outline: none;' class="form-control" type="password" name="password" placeholder="Password">
+    </div>
+    <div style='display: flex; justify-content: center; padding-top: 0px; margin-top: 0px;color:#fff'>Don't have an account? <a style="padding-left: 5px;" href="{% url 'register' %}">Register here.</a></div>
+    <div style="display: flex; justify-content: center; padding-top: 8px;">
+    <button style="width: 100px; background-color: #000; outline: none; border: 1px solid #ff0000; padding: 5px 10px"><a style="color: #fff; font-size: 20px; text-decoration: none;">Login</a></button>
+    </div>
+</form>
+
+{% endblock %}

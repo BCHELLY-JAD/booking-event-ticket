@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/02ab0cb789.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="{% static 'United/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'United/view.css' %}" rel="stylesheet">
+    <link href="{% static 'United/bot.css' %}" rel="stylesheet">
+
+
+    <!-- Book.html -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- XDSoft DateTimePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>{% block title %}United{% endblock %}</title>
+
+    {% block script %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    <nav class="thenav">
+        <h1 class="logo"><a href="{% url 'home' %}">UNITED</a></h1>
+        <ul class="layout">
+
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'myevents' %}" >My Events</a>
+            </li>
+            <li>
+                <a href="{% url 'reservation' %}" >Reservations</a>
+            </li>
+            <li>
+                <a href="{% url 'advertise' %}">Ads</a>
+            </li>
+            <li>
+                <a href="{% url 'account' user.id %}">Account</a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}">Log out</a>
+            </li>
+
+            {% else %}
+           
+            <li>
+                <a href="{% url 'login' %}">Log in</a>
+            </li>
+
+            <li>
+                <a href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
+
+
+        </ul>
+        <div style="clear:both;"></div>
+
+    </nav>
+
+
+
+
+    <div class="body">
+        {% block body %}
+
+        {% endblock %}
+    </div>
+
+</body>
+</html>
